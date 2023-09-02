@@ -8,18 +8,18 @@ import Togglable from './components/Togglable'
 import { useDispatch, useSelector } from 'react-redux'
 import { failure, success } from './reducers/notificationReducer'
 import { setBlogs } from './reducers/blogsReducer'
+import { setUser } from './reducers/userReducer'
 
 const App = () => {
 
   const notificationMessage = useSelector(state => state.notifications)
   const blogs = useSelector(state => state.blogs)
+  const user = useSelector(state => state.user)
 
   const dispatch = useDispatch()
 
-  // const [blogs, setBlogs] = useState([])
   const [userName, setUserName] = useState("")
   const [password, setPassword] = useState("")
-  const [user, setUser] = useState(null)
   const [author, setAuthor] = useState("")
   const [title, setTitle] = useState("")
   const [url, setUrl] = useState("")
@@ -42,7 +42,7 @@ const App = () => {
         'loggedBlogAppUser', JSON.stringify(user)
       )
       blogService.setToken(user.token)
-      setUser(user)
+      dispatch(setUser(user))
       setUserName("")
       setPassword("")
       dispatch(success({ message: 'User logged successfuly', className: 'success' }))
@@ -82,7 +82,7 @@ const App = () => {
   const handleLogout = () => {
     window.localStorage.removeItem('loggedBlogAppUser')
     blogService.setToken(user.token)
-    setUser(null)
+    dispatch(setUser(null))
   }
 
   useEffect(() => {

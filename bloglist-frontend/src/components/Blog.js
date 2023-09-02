@@ -26,7 +26,7 @@ const Blog = ({ blog, blogsArray, setBlogs, user }) => {
         prevBlog.id === updatedBlog.id ? updatedBlog : prevBlog
       )
 
-      setBlogs(updatedBlogs)
+      dispatch(setBlogs(updatedBlogs))
       dispatch(success({ message: 'The blog received a vote', className: "success" }))
       setTimeout(() => {
         dispatch(success({ message: '', className: "" }))
@@ -49,7 +49,7 @@ const Blog = ({ blog, blogsArray, setBlogs, user }) => {
       await blogs.deleteBlog(id)
       const newBlogList = blogsArray.filter(b => { return b.id !== id })
       console.log(newBlogList)
-      setBlogs(newBlogList)
+      dispatch(setBlogs(newBlogList))
       dispatch(success({ message: 'The blog was deleted successfuly', className: "success" }))
       setTimeout(() => {
         dispatch(success({ message: '', className: "" }))

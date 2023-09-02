@@ -5,12 +5,14 @@ import "./index.css"
 import { Provider } from 'react-redux'
 import { notificationReducer } from './reducers/notificationReducer'
 import { blogsReducer } from './reducers/blogsReducer'
+import { userReducer } from './reducers/userReducer'
 import { configureStore } from '@reduxjs/toolkit'
 
 const store = configureStore({
     reducer: {
         notifications: notificationReducer,
-        blogs: blogsReducer
+        blogs: blogsReducer,
+        user: userReducer
     }
 })
 
