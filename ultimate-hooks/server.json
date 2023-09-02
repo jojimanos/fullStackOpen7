@@ -1,0 +1,44 @@
+{
+  "notes": [
+    {
+      "id": 1
+    },
+    {
+      "content": "This is a note",
+      "id": 2
+    },
+    {
+      "content": "This is a note",
+      "id": 3
+    },
+    {
+      "content": "Another note",
+      "id": 4
+    },
+    {
+      "content": "A note",
+      "id": 5
+    },
+    {
+      "content": "One note more",
+      "id": 6
+    }
+  ],
+  "persons": [
+    {
+      "name": "George",
+      "number": "123",
+      "id": 1
+    },
+    {
+      "name": "Alexander",
+      "number": "123",
+      "id": 2
+    },
+    {
+      "name": "Manos",
+      "number": "123",
+      "id": 3
+    }
+  ]
+}
