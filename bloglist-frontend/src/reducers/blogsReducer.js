@@ -2,7 +2,7 @@ const initialState = []
 
 export const blogsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "GET":
+        case "GETBLOGS":
             return  action.payload
         default:
             return state
@@ -11,7 +11,7 @@ export const blogsReducer = (state = initialState, action) => {
 
 export const setBlogs = (blogs) => {
     return {
-        type: "GET",
+        type: "GETBLOGS",
         payload: blogs
     }
 }

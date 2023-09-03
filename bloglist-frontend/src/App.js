@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { failure, success } from './reducers/notificationReducer'
 import { setBlogs } from './reducers/blogsReducer'
 import { setUser } from './reducers/userReducer'
+import { Link } from 'react-router-dom'
 
 const App = () => {
 
@@ -30,9 +31,11 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       dispatch(setBlogs(blogs))
-      // setBlogs(blogs)
     )
   }, [])
+
+
+  console.log(blogs)
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -79,12 +82,6 @@ const App = () => {
     }
   }
 
-  const handleLogout = () => {
-    window.localStorage.removeItem('loggedBlogAppUser')
-    blogService.setToken(user.token)
-    dispatch(setUser(null))
-  }
-
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
     if (loggedUserJSON) {
@@ -99,9 +96,9 @@ const App = () => {
       <h2>{user ? "blogs" : "Login"}</h2>
       {notificationMessage.className === 'success' && <h1 className={notificationMessage.className}>{notificationMessage.message}</h1>}
       {notificationMessage.className === 'error' && <h1 className={notificationMessage.className}>{notificationMessage.message}</h1>}
+      <Link to={'/users'}>Users</Link>
       {user ?
         <>
-          <h3>Welcome {user.userName} <button onClick={handleLogout}>Logout</button></h3>
           <Togglable
             ref={blogFormRef}
           >
@@ -121,8 +118,6 @@ const App = () => {
               blog={blog}
               blogsArray={blogs}
               setBlogs={setBlogs}
-              // setSuccessMessage={setSuccessMessage}
-              // setErrorMessage={setErrorMessage}
               user={user}
             />
           )}
