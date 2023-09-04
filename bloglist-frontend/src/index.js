@@ -12,6 +12,9 @@ import { Container } from '@mui/material'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import UsersData from './components/UsersData'
 import Navbar from './components/Navbar'
+import SingleUserView from './components/SingleUserView'
+import SingleBlogView from './components/SingleBlogView'
+import BlogsView from './components/BlogsView'
 
 const store = configureStore({
     reducer: {
@@ -30,6 +33,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <Routes>
                     <Route path='/' element={<App />} />
                     <Route path='/users' element={<UsersData />} />
+                    <Route path='/users/:id' element={<SingleUserView />}/>
+                    <Route path='/blogs' element={<BlogsView />} />
+                    <Route path='/blogs/:id' element={<SingleBlogView/>}/>
                 </Routes>
             </BrowserRouter>
         </Provider>

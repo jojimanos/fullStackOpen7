@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { failure, success } from './reducers/notificationReducer'
 import { setBlogs } from './reducers/blogsReducer'
 import { setUser } from './reducers/userReducer'
-import { Link } from 'react-router-dom'
 
 const App = () => {
 
@@ -86,7 +85,7 @@ const App = () => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
-      setUser(user)
+      dispatch(setUser(user))
       blogService.setToken(user.token)
     }
   }, [])
@@ -96,7 +95,6 @@ const App = () => {
       <h2>{user ? "blogs" : "Login"}</h2>
       {notificationMessage.className === 'success' && <h1 className={notificationMessage.className}>{notificationMessage.message}</h1>}
       {notificationMessage.className === 'error' && <h1 className={notificationMessage.className}>{notificationMessage.message}</h1>}
-      <Link to={'/users'}>Users</Link>
       {user ?
         <>
           <Togglable

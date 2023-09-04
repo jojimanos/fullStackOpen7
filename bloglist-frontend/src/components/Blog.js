@@ -2,6 +2,7 @@ import { useState } from "react"
 import blogs from "../services/blogs"
 import { useDispatch } from "react-redux"
 import { failure, success } from "../reducers/notificationReducer"
+import { Link } from "react-router-dom"
 
 const Blog = ({ blog, blogsArray, setBlogs, user }) => {
 
@@ -65,9 +66,11 @@ const Blog = ({ blog, blogsArray, setBlogs, user }) => {
 
   return (
     <div id={blog.likes} className="blog">
-      <p className="title">
-        {blog.title}
-      </p>
+      <Link to={`/blogs/${blog.id}`}>
+        <p className="title">
+          {blog.title}
+        </p>
+      </Link>
       <p className="author">
         {blog.author}
       </p>
