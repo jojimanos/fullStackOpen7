@@ -7,7 +7,8 @@ const SingleBlogView = () => {
     console.log(blogs)
 
     const blogId = useParams('id')
-    const blog = blogs.filter(b => b.id === blogId.id)
+    const blogsArray = blogs
+    const blog = blogsArray.filter(b => b.id === blogId.id)
     console.log(blog)
 
     return (

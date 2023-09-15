@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
+import usersService from './services/users'
 import login from './services/login'
 import LoginForm from './components/loginForm'
 import BlogForm from './components/BlogForm'
@@ -9,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { failure, success } from './reducers/notificationReducer'
 import { setBlogs } from './reducers/blogsReducer'
 import { setUser } from './reducers/userReducer'
+import { setUsers } from './reducers/usersReducer'
 
 const App = () => {
 
@@ -33,8 +35,15 @@ const App = () => {
     )
   }, [])
 
+  useEffect(() => {
+    usersService.getAll().then(users =>
+      dispatch(setUsers(users))
+    )
+  }, [])
+
 
   console.log(blogs)
+  console.log(user)
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -85,6 +94,7 @@ const App = () => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
+      console.log(user)
       dispatch(setUser(user))
       blogService.setToken(user.token)
     }
