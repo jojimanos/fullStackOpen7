@@ -11,20 +11,14 @@ const BlogsView = () => {
 
     const blogs = useSelector(state => state.blogs)
     const user = useSelector(state => state.user)
-
-    // const dispatch = useDispatch()
-// 
-    // useEffect(() => {
-        // blogService.getAll().then(blogs =>
-            // dispatch(setBlogs(blogs))
-        // )
-    // }, [])
-
+    
     const blogsArray = blogs
 
     return (
         <>
-            {blogsArray.sort((blogA, blogB) => blogB.likes - blogA.likes).map(blog =>
+            {blogsArray
+            // .sort((blogA, blogB) => blogB.likes - blogA.likes)
+            .map(blog =>
                 <Blog
                     key={blog.id}
                     blog={blog}

@@ -17,6 +17,7 @@ const App = () => {
   const notificationMessage = useSelector(state => state.notifications)
   const blogs = useSelector(state => state.blogs)
   const user = useSelector(state => state.user)
+  const users = useSelector(state => state.users)
 
   const dispatch = useDispatch()
 
@@ -30,9 +31,8 @@ const App = () => {
   const blogFormRef = useRef()
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      dispatch(setBlogs(blogs))
-    )
+    blogService.getAll().then(blogs => 
+      dispatch(setBlogs(blogs)))
   }, [])
 
   useEffect(() => {
@@ -44,6 +44,7 @@ const App = () => {
 
   console.log(blogs)
   console.log(user)
+  console.log(users)
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -105,7 +106,7 @@ const App = () => {
       <h2>{user ? "blogs" : "Login"}</h2>
       {notificationMessage.className === 'success' && <h1 className={notificationMessage.className}>{notificationMessage.message}</h1>}
       {notificationMessage.className === 'error' && <h1 className={notificationMessage.className}>{notificationMessage.message}</h1>}
-      {user ?
+      {user && blogs ?
         <>
           <Togglable
             ref={blogFormRef}
@@ -120,7 +121,8 @@ const App = () => {
               setUrl={setUrl}
             />
           </Togglable>
-          {blogs.sort((blogA, blogB) => blogB.likes - blogA.likes).map(blog =>
+          {blogs
+          .map(blog =>
             <Blog
               key={blog.id}
               blog={blog}
@@ -128,7 +130,7 @@ const App = () => {
               setBlogs={setBlogs}
               user={user}
             />
-          )}
+           )}
         </>
         :
         <LoginForm

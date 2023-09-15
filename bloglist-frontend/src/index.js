@@ -5,8 +5,8 @@ import "./index.css"
 import { Provider } from 'react-redux'
 import { notificationReducer } from './reducers/notificationReducer'
 import blogsReducer from './reducers/blogsReducer'
-import { userReducer } from './reducers/userReducer'
-import { usersReducer } from './reducers/usersReducer'
+import userReducer from './reducers/userReducer'
+import usersReducer from './reducers/usersReducer'
 import { configureStore } from '@reduxjs/toolkit'
 import { Container } from '@mui/material'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -33,9 +33,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <Routes>
                     <Route path='/' element={<App />} />
                     <Route path='/users' element={<UsersData />} />
-                    <Route path='/users/:id' element={<SingleUserView />}/>
+                    <Route path='/users/:id' element={<SingleUserView />} />
                     <Route path='/blogs' element={<BlogsView />} />
-                    <Route path='/blogs/:id' element={<SingleBlogView/>}/>
+                    <Route path='/blogs/:id' element={<SingleBlogView />} />
                 </Routes>
             </BrowserRouter>
         </Provider>

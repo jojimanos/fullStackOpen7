@@ -1,17 +1,17 @@
-const initialState = []
+import { createSlice } from "@reduxjs/toolkit"
 
-export const userReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case "LOGIN/LOGOUT":
+const initialState = null
+
+const userSlice = createSlice({
+    name: 'user',
+    initialState: initialState,
+    reducers: {
+        setUser(state, action) {
             return action.payload
-        default:
-            return state
+        }
     }
-}
+})
 
-export const setUser = (user) => {
-    return {
-        type: "LOGIN/LOGOUT",
-        payload: user
-    }
-}
+export const { setUser } = userSlice.actions
+
+export default userSlice.reducer
