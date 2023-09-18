@@ -35,6 +35,18 @@ const setLikes = async (newObject, id) => {
   return response.data
 }
 
+const commentBlog = async (newObject, id) => {
+  const config = {
+    headers: { Authorization: token }
+  }
+
+  let url = baseUrl + "/" + id + "/comments"
+  console.log("This is the url", url)
+
+  const response = await axios.put(url, newObject, config)
+  return response.data
+}
+
 const deleteBlog = async (id) => {
 
   const config = {
@@ -49,4 +61,4 @@ const deleteBlog = async (id) => {
 }
 
 // eslint-disable-next-line 
-export default { setToken, getAll, create, setLikes, deleteBlog }
+export default { setToken, getAll, create, setLikes, commentBlog, deleteBlog }

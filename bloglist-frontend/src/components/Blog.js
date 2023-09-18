@@ -10,6 +10,8 @@ const Blog = ({ blog, blogsArray, setBlogs, user }) => {
 
   const [showDetails, setShowDetails] = useState(false)
 
+  const [comment, setComment] = useState("")
+
   const handleLikes = async () => {
     let id = blog.id
     console.log(id)
@@ -35,6 +37,38 @@ const Blog = ({ blog, blogsArray, setBlogs, user }) => {
     } catch (error) {
       console.log(error.message)
       dispatch(failure({ message: 'There was an error while voting', className: "error" }))
+      setTimeout(() => {
+        dispatch(failure({ message: '', className: "" }))
+      }, 5000)
+    }
+  }
+
+  const handleComments = async () => {
+    let id = blog.id
+    try {
+      const updatedBlog = await blogs.commentBlog(
+        {
+          author: blog.author,
+          title: blog.title,
+          url: blog.url,
+          likes: blog.likes,
+          comments: blog.comments.concat(comment) 
+        }, id
+      )
+
+      const updatedBlogs = blogsArray.map((prevBlog) =>
+        prevBlog.id === updatedBlog.id ? updatedBlog : prevBlog
+      )
+      setComment("")
+
+      dispatch(setBlogs(updatedBlogs))
+      dispatch(success({ message: 'The blog received a comment', className: "success" }))
+      setTimeout(() => {
+        dispatch(success({ message: '', className: "" }))
+      }, 5000)
+    } catch (error) {
+      console.log(error.message)
+      dispatch(failure({ message: 'There was an error while commenting', className: "error" }))
       setTimeout(() => {
         dispatch(failure({ message: '', className: "" }))
       }, 5000)
@@ -74,18 +108,24 @@ const Blog = ({ blog, blogsArray, setBlogs, user }) => {
       <p className="author">
         {blog.author}
       </p>
-      {showDetails ? <div className="hidden">
-        <p className="url">
-          {blog.url}
-        </p>
-        <p className="likes">
-          {blog.likes}
-          <button id="likeButton" onClick={handleLikes}>like</button>
-        </p>
-        <p>
-          {/* eslint-disable-next-line */}
-          Created by {blog.user?.userName}
-        </p></div> : null}
+      {showDetails ?
+        <div className="hidden">
+          <p className="url">
+            {blog.url}
+          </p>
+          <p className="likes">
+            {blog.likes}
+            <button id="likeButton" onClick={handleLikes}>like</button>
+          </p>
+          <input name="comment" id="id" placeholder="comment here" onChange={(e) => setComment(e.target.value)} />
+          <button onClick={handleComments}>Comment</button>
+          <p>
+            {/* eslint-disable-next-line */}
+            Created by {blog.user?.userName}
+          </p>
+        </div>
+        :
+        null}
       <button id="hide-view" className="hide-view" onClick={() => { setShowDetails(!showDetails) }}>
         {showDetails === false ? "view" : "hide"}</button>
       {user?.userName === blog.user?.userName ? <button onClick={handleDelete}>Delete</button> : null}
