@@ -12,6 +12,8 @@ const Blog = ({ blog, blogsArray, setBlogs, user }) => {
 
   const [comment, setComment] = useState("")
 
+  console.log(comment)
+
   const handleLikes = async () => {
     let id = blog.id
     console.log(id)
@@ -46,20 +48,13 @@ const Blog = ({ blog, blogsArray, setBlogs, user }) => {
   const handleComments = async () => {
     let id = blog.id
     try {
-      const updatedBlog = await blogs.commentBlog(
-        {
-          author: blog.author,
-          title: blog.title,
-          url: blog.url,
-          likes: blog.likes,
-          comments: blog.comments.concat(comment) 
-        }, id
+      const updatedBlog = await blogs.commentBlog({ comment: comment }, id
       )
 
       const updatedBlogs = blogsArray.map((prevBlog) =>
         prevBlog.id === updatedBlog.id ? updatedBlog : prevBlog
       )
-      setComment("")
+      // setComment("")
 
       dispatch(setBlogs(updatedBlogs))
       dispatch(success({ message: 'The blog received a comment', className: "success" }))
