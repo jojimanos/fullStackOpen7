@@ -48,9 +48,17 @@ const Blog = ({ blog, blogsArray, setBlogs, user }) => {
   const handleComments = async () => {
     let id = blog.id
     try {
-      const updatedBlog = await blogs.commentBlog({ comment: comment }, id
+      const updatedBlog = await blogs.commentBlog(
+        {
+          author: blog.author,
+          title: blog.title,
+          url: blog.url,
+          id: blog.id,
+          comment: comment
+        }, id
       )
 
+      setComment("")
       const updatedBlogs = blogsArray.map((prevBlog) =>
         prevBlog.id === updatedBlog.id ? updatedBlog : prevBlog
       )
@@ -114,6 +122,10 @@ const Blog = ({ blog, blogsArray, setBlogs, user }) => {
           </p>
           <input name="comment" id="id" placeholder="comment here" onChange={(e) => setComment(e.target.value)} />
           <button onClick={handleComments}>Comment</button>
+          <h4>Comments:</h4>
+          <p className="comments">
+            {blog.comments.map(c => c.comment)}
+          </p>
           <p>
             {/* eslint-disable-next-line */}
             Created by {blog.user?.userName}
