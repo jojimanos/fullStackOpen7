@@ -3,6 +3,7 @@ import blogs from "../services/blogs"
 import { useDispatch } from "react-redux"
 import { failure, success } from "../reducers/notificationReducer"
 import { Link } from "react-router-dom"
+import { Button, Table, TableBody, TableCell, TableHead, TableRow, Box } from "@mui/material"
 
 const Blog = ({ blog, blogsArray, setBlogs, user }) => {
 
@@ -62,7 +63,6 @@ const Blog = ({ blog, blogsArray, setBlogs, user }) => {
       const updatedBlogs = blogsArray.map((prevBlog) =>
         prevBlog.id === updatedBlog.id ? updatedBlog : prevBlog
       )
-      // setComment("")
 
       dispatch(setBlogs(updatedBlogs))
       dispatch(success({ message: 'The blog received a comment', className: "success" }))
@@ -102,41 +102,77 @@ const Blog = ({ blog, blogsArray, setBlogs, user }) => {
   }
 
   return (
-    <div id={blog.likes} className="blog">
-      <Link to={`/blogs/${blog.id}`}>
-        <p className="title">
-          {blog.title}
-        </p>
-      </Link>
-      <p className="author">
-        {blog.author}
-      </p>
-      {showDetails ?
-        <div className="hidden">
-          <p className="url">
-            {blog.url}
-          </p>
-          <p className="likes">
-            {blog.likes}
-            <button id="likeButton" onClick={handleLikes}>like</button>
-          </p>
-          <input name="comment" id="id" placeholder="comment here" onChange={(e) => setComment(e.target.value)} />
-          <button onClick={handleComments}>Comment</button>
-          <h4>Comments:</h4>
-          <p className="comments">
-            {blog.comments.map(c => c.comment)}
-          </p>
-          <p>
-            {/* eslint-disable-next-line */}
-            Created by {blog.user?.userName}
-          </p>
-        </div>
-        :
-        null}
-      <button id="hide-view" className="hide-view" onClick={() => { setShowDetails(!showDetails) }}>
-        {showDetails === false ? "view" : "hide"}</button>
-      {user?.userName === blog.user?.userName ? <button onClick={handleDelete}>Delete</button> : null}
-    </div>
+    <Table>
+      <div id={blog.likes} className="blog">
+        <TableHead>
+          <Link to={`/blogs/${blog.id}`}>
+            <p className="title">
+              {blog.title}
+            </p>
+          </Link>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <p className="author">
+              {blog.author}
+            </p>
+          </TableRow>
+          {showDetails ?
+            <div className="hidden">
+              <TableRow>
+                <p className="url">
+                  {blog.url}
+                </p>
+              </TableRow>
+              <TableRow>
+                <p className="likes">
+                  <TableCell>
+                    {blog.likes}
+                  </TableCell>
+                  <TableCell>
+                    <Button variant="contained" size="small" id="likeButton" onClick={handleLikes}>like</Button>
+                  </TableCell>
+                </p>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <input name="comment" id="id" placeholder="comment here" onChange={(e) => setComment(e.target.value)} />
+                </TableCell>
+                <TableCell>
+                  <Button variant="contained" onClick={handleComments}>Comment</Button>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <h4>Comments:</h4>
+                </TableCell>
+                <TableCell>
+                  <p className="comments">
+                    {blog.comments.map(c => c.comment)}
+                  </p>
+                </TableCell>
+              </TableRow>
+              <TableRow align="center">
+                <p>
+                  {/* eslint-disable-next-line */}
+                  Created by {blog.user?.userName}
+                </p>
+              </TableRow>
+            </div>
+            :
+            null}
+          <TableRow align="left">
+            <TableCell align="left">
+              <Box display="flex" justifyContent="space-between">
+                <Button variant="contained" id="hide-view" className="hide-view" onClick={() => { setShowDetails(!showDetails) }}>
+                  {showDetails === false ? "view" : "hide"}</Button>
+                {user?.userName === blog.user?.userName ? <Button variant="contained" onClick={handleDelete}>Delete</Button> : null}
+              </Box>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </div>
+    </Table>
   )
 }
 
