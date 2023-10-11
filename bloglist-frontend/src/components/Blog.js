@@ -3,7 +3,7 @@ import blogs from "../services/blogs"
 import { useDispatch } from "react-redux"
 import { failure, success } from "../reducers/notificationReducer"
 import { Link } from "react-router-dom"
-import { Button, Table, TableBody, TableCell, TableHead, TableRow, Box } from "@mui/material"
+import { Button, Table, TableBody, TableCell, TableHead, TableRow, Box, TextField } from "@mui/material"
 
 const Blog = ({ blog, blogsArray, setBlogs, user }) => {
 
@@ -106,23 +106,42 @@ const Blog = ({ blog, blogsArray, setBlogs, user }) => {
       <div id={blog.likes} className="blog">
         <TableHead>
           <Link to={`/blogs/${blog.id}`}>
-            <p className="title">
-              {blog.title}
-            </p>
+            <TableCell>
+              Title:
+            </TableCell>
+            <TableCell>
+              <p className="title">
+                {blog.title}
+              </p>
+            </TableCell>
           </Link>
         </TableHead>
         <TableBody>
           <TableRow>
-            <p className="author">
-              {blog.author}
-            </p>
+            <div>
+              <TableCell>
+                Author:
+              </TableCell>
+              <TableCell align="left">
+                <p className="author">
+                  {blog.author}
+                </p>
+              </TableCell>
+            </div>
           </TableRow>
           {showDetails ?
             <div className="hidden">
               <TableRow>
-                <p className="url">
-                  {blog.url}
-                </p>
+                <div>
+                  <TableCell>
+                    URL:
+                  </TableCell>
+                  <TableCell>
+                    <p className="url">
+                      {blog.url}
+                    </p>
+                  </TableCell>
+                </div>
               </TableRow>
               <TableRow>
                 <p className="likes">
@@ -136,7 +155,7 @@ const Blog = ({ blog, blogsArray, setBlogs, user }) => {
               </TableRow>
               <TableRow>
                 <TableCell>
-                  <input name="comment" id="id" placeholder="comment here" onChange={(e) => setComment(e.target.value)} />
+                  <TextField name="comment" id="id" placeholder="comment here" onChange={(e) => setComment(e.target.value)} />
                 </TableCell>
                 <TableCell>
                   <Button variant="contained" onClick={handleComments}>Comment</Button>
@@ -153,10 +172,12 @@ const Blog = ({ blog, blogsArray, setBlogs, user }) => {
                 </TableCell>
               </TableRow>
               <TableRow align="center">
-                <p>
-                  {/* eslint-disable-next-line */}
-                  Created by {blog.user?.userName}
-                </p>
+                <TableCell>
+                  <p>
+                    {/* eslint-disable-next-line */}
+                    Created by {blog.user?.userName}
+                  </p>
+                </TableCell>
               </TableRow>
             </div>
             :
@@ -171,8 +192,8 @@ const Blog = ({ blog, blogsArray, setBlogs, user }) => {
             </TableCell>
           </TableRow>
         </TableBody>
-      </div>
-    </Table>
+      </div >
+    </Table >
   )
 }
 

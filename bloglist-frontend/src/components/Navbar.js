@@ -3,6 +3,7 @@ import { setUser } from '../reducers/userReducer'
 import blogService from '../services/blogs'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import { AppBar, Toolbar, Button } from '@mui/material'
 
 const Navbar = () => {
 
@@ -22,11 +23,22 @@ const Navbar = () => {
             {user ?
                 (
                     <>
-                        <h3> <Link to={'/blogs'}>blogs </Link>
-                            <Link to={'/users'}>users </Link>
-                            Welcome {user.userName}
-                            <button onClick={handleLogout}>Logout</button>
-                        </h3>
+                        <AppBar position='static'>
+                            <Toolbar>
+                                <h3>
+                                    <Link style={{ textDecoration: "none", color: "white" }} to={'/'}>
+                                        Welcome {user.userName}:
+                                    </Link>
+                                    <Button variant='inherit'>
+                                        <Link style={{ textDecoration: "none", color: "white" }} to={'/blogs'}>blogs </Link>
+                                    </Button>
+                                    <Button variant='inherit'>
+                                        <Link style={{ textDecoration: "none", color: "white" }} to={'/users'}>users </Link>
+                                    </Button>
+                                    <Button variant='inherit' onClick={handleLogout}>Logout</Button>
+                                </h3>
+                            </Toolbar>
+                        </AppBar>
                     </>
                 ) :
                 null

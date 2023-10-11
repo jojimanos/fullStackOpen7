@@ -103,7 +103,7 @@ const App = () => {
 
   return (
     <div>
-      <h2>{user ? "blogs" : "Login"}</h2>
+      <h2>{user ? "List of Blogs:" : "Login"}</h2>
       {notificationMessage.className === 'success' && <h1 className={notificationMessage.className}>{notificationMessage.message}</h1>}
       {notificationMessage.className === 'error' && <h1 className={notificationMessage.className}>{notificationMessage.message}</h1>}
       {user && blogs ?

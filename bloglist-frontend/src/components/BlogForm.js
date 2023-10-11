@@ -1,3 +1,5 @@
+import { Button, TextField } from "@mui/material"
+
 const BlogForm = ({ handleCreate, author, setAuthor, title, setTitle, url, setUrl }) => {
 
 
@@ -5,7 +7,8 @@ const BlogForm = ({ handleCreate, author, setAuthor, title, setTitle, url, setUr
         <>
             <form onSubmit={handleCreate}>
                 <div>
-                    author <input
+                    <TextField
+                    label="author"
                         className="author"
                         id="author"
                         type="text"
@@ -18,7 +21,8 @@ const BlogForm = ({ handleCreate, author, setAuthor, title, setTitle, url, setUr
                 </div>
                 <br />
                 <div>
-                    title <input
+                    <TextField
+                    label="title"
                         className="title"
                         id="title"
                         type="text"
@@ -29,7 +33,8 @@ const BlogForm = ({ handleCreate, author, setAuthor, title, setTitle, url, setUr
                 </div>
                 <br />
                 <div>
-                    url <input
+                    <TextField
+                    label="url"
                         className="url"
                         id="url"
                         type="text"
@@ -39,7 +44,7 @@ const BlogForm = ({ handleCreate, author, setAuthor, title, setTitle, url, setUr
                     />
                 </div>
                 <br />
-                <button type="submit">Create</button>
+                <Button variant="outlined" type="submit">Create</Button>
             </form>
         </>
     )

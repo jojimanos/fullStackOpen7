@@ -3,6 +3,8 @@ import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Blog from './Blog';
+import { renderWithProviders } from './utilsForTests';
+import { MemoryRouter } from 'react-router';
 
 test('Blog component renders author and title but not url and likes by default', () => {
   const mockBlog = {
@@ -16,7 +18,11 @@ test('Blog component renders author and title but not url and likes by default',
     }
   };
 
-  render(<Blog blog={mockBlog} />)
+  renderWithProviders(
+    <MemoryRouter>
+      <Blog blog={mockBlog} />
+    </MemoryRouter>
+  )
 
   screen.debug()
 
@@ -38,12 +44,17 @@ test('hidden content (url, likes) appears, button text switches to hide', async 
     title: 'Test Title',
     url: 'http://test-url.com',
     likes: 10,
+    comments: ["this is a comment"],
     user: {
       userName: 'testuser'
     }
   };
 
-  render(<Blog blog={mockBlog} />)
+  renderWithProviders(
+    <MemoryRouter>
+      <Blog blog={mockBlog} />
+    </MemoryRouter>
+  )
 
   const user = userEvent.setup()
   const container = document.querySelector('.hide-view')
